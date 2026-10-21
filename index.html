@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b16">
+<meta name="description" content="Kotlin for Forge - اكتشف ألعاب الكمبيوتر والأندرويد وروابط تحميلها الرسمية.">
+<title>Kotlin for Forge | عالم الألعاب</title>
+<style>
+:root {
+  --bg: #090b16;
+  --panel: #111528;
+  --panel2: #171d34;
+  --purple: #9b5cff;
+  --blue: #39b9ff;
+  --text: #f5f6ff;
+  --muted: #a3acc7;
+  --border: #252d49;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Tahoma, Arial, sans-serif;
+  line-height: 1.7;
+}
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+.container { width: min(1120px, 92%); margin: auto; }
+header {
+  position: sticky; top: 0; z-index: 10;
+  background: #090b16ed;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav {
+  min-height: 76px; display: flex; align-items: center;
+  justify-content: space-between; gap: 16px;
+}
+.logo { font-size: 21px; font-weight: 900; letter-spacing: -.5px; }
+.logo span { color: var(--blue); }
+nav { display: flex; gap: 20px; color: var(--muted); font-size: 14px; }
+nav a:hover { color: white; }
+.hero {
+  padding: 68px 0 48px;
+  background:
+    radial-gradient(ellipse at 15% 15%, #713bca30, transparent 45%),
+    radial-gradient(ellipse at 90% 30%, #168ed52b, transparent 42%);
+}
+.tag {
+  display: inline-block; border: 1px solid #7046ae;
+  background: #8c4bff18; color: #cdb0ff;
+  border-radius: 99px; padding: 5px 12px; font-size: 12px;
+}
+h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1.25; margin: 18px 0; }
+h1 span {
+  background: linear-gradient(90deg, var(--blue), #ba80ff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero p { max-width: 650px; color: var(--muted); margin: 0 0 24px; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; justify-content: center; align-items: center;
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 11px 18px; cursor: pointer; font-weight: bold;
+  transition: .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.primary { background: linear-gradient(100deg, #7042dc, #257fe0); border: 0; color: white; }
+.secondary { background: var(--panel); }
+.stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-top: 36px; max-width: 650px;
+}
+.stat { background: #12172ac9; border: 1px solid var(--border); border-radius: 14px; padding: 14px; }
+.stat strong { display: block; font-size: 21px; }
+.stat small { color: var(--muted); }
+section { padding: 28px 0 42px; }
+.section-head {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
+}
+h2 { margin: 0; font-size: 25px; }
+.section-head p { color: var(--muted); margin: 4px 0 0; font-size: 13px; }
+.searchbox { display: flex; gap: 9px; margin: 22px 0; }
+.searchbox input {
+  width: 100%; min-width: 0; color: white;
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 12px; padding: 13px 15px; outline: none;
+}
+.searchbox input:focus { border-color: var(--purple); }
+.filters { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 24px; }
+.filter {
+  color: var(--muted); background: var(--panel);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 8px 14px; cursor: pointer;
+}
+.filter.active, .filter:hover { color: white; background: #6335a7; border-color: #9b5cff; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.game {
+  min-width: 0; overflow: hidden; background: var(--panel);
+  border: 1px solid var(--border); border-radius: 17px;
+  transition: transform .2s, border-color .2s;
+}
+.game:hover { transform: translateY(-4px); border-color: #6e55ad; }
+.cover {
+  min-height: 155px; display: grid; place-items: center;
+  font-size: 55px; position: relative;
+  background: radial-gradient(circle at 50% 30%, #6341a8, #171d39 72%);
+}
+.cover.blue { background: radial-gradient(circle at 50% 30%, #176d9d, #111b35 72%); }
+.cover.green { background: radial-gradient(circle at 50% 30%, #28794f, #101e2c 72%); }
+.cover.orange { background: radial-gradient(circle at 50% 30%, #a95a25, #28172b 72%); }
+.cover.red { background: radial-gradient(circle at 50% 30%, #a33450, #20172d 72%); }
+.platform {
+  position: absolute; top: 12px; right: 12px;
+  font-size: 11px; background: #090b16cc; border: 1px solid #ffffff24;
+  border-radius: 7px; padding: 4px 8px;
+}
+.game-info { padding: 15px; }
+.game h3 { margin: 0 0 5px; font-size: 18px; }
+.game p { color: var(--muted); font-size: 13px; min-height: 44px; margin: 0 0 14px; }
+.game-bottom { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.kind { color: #c5a8ff; font-size: 11px; }
+.download { font-size: 12px; padding: 8px 12px; }
+.empty {
+  display: none; text-align: center; color: var(--muted);
+  padding: 35px; border: 1px dashed var(--border); border-radius: 14px;
+}
+.notice {
+  background: linear-gradient(110deg, #181633, #101d30);
+  border: 1px solid #34335c; border-radius: 18px; padding: 25px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 18px; flex-wrap: wrap;
+}
+.notice p { color: var(--muted); margin-bottom: 0; }
+footer { margin-top: 35px; padding: 28px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+.footer-row { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+@media(max-width: 800px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  nav { gap: 11px; }
+  .hero { padding-top: 48px; }
+}
+@media(max-width: 520px) {
+  .grid { grid-template-columns: 1fr; }
+  .cover { min-height: 175px; }
+  nav { font-size: 12px; gap: 10px; }
+  .logo { font-size: 16px; }
+  .stats { gap: 7px; }
+  .stat { padding: 10px; }
+  .stat strong { font-size: 17px; }
+  h2 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="#">Kotlin <span>for Forge</span> 🎮</a>
+    <nav>
+      <a href="#">الرئيسية</a>
+      <a href="#games">الألعاب</a>
+      <a href="#about">عن الموقع</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <span class="tag">✦ بوابتك إلى عالم الألعاب</span>
+      <h1>عالم الألعاب<br><span>بين يديك.</span></h1>
+      <p>اكتشف ألعاب الكمبيوتر والأندرويد، تعرّف على الألعاب الجديدة، واعثر على روابط التحميل الرسمية في مكان واحد.</p>
+      <div class="actions">
+        <a class="btn primary" href="#games">🎮 تصفّح الألعاب</a>
+        <a class="btn secondary" href="#about">اعرف المزيد ←</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>PC 💻</strong><small>ألعاب الكمبيوتر</small></div>
+        <div class="stat"><strong>Android 📱</strong><small>ألعاب الهاتف</small></div>
+        <div class="stat"><strong>مجاني ✨</strong><small>تصفّح الموقع مجانًا</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="games">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>مكتبة الألعاب</h2>
+          <p>اختَر لعبتك وابحث عن رابطها الرسمي.</p>
+        </div>
+      </div>
+
+      <div class="searchbox">
+        <input id="search" type="search" placeholder="🔎 ابحث عن لعبة..." aria-label="ابحث عن لعبة">
+      </div>
+
+      <div class="filters" aria-label="تصنيفات الألعاب">
+        <button class="filter active" data-filter="all">كل الألعاب</button>
+        <button class="filter" data-filter="pc">💻 الكمبيوتر</button>
+        <button class="filter" data-filter="android">📱 الأندرويد</button>
+      </div>
+
+      <div class="grid" id="gameGrid">
+
+        <article class="game" data-platform="pc" data-name="minecraft ماينكرافت">
+          <div class="cover green"><span class="platform">PC</span>🌲</div>
+          <div class="game-info">
+            <h3>Minecraft</h3>
+            <p>استكشف عوالم واسعة وابنِ مغامرتك الخاصة.</p>
+            <div class="game-bottom">
+              <span class="kind">بناء ومغامرات</span>
+              <a class="btn primary download" href="https://www.minecraft.net/" target="_blank" rel="noopener">صفحة اللعبة ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game" data-platform="android" data-name="minecraft ماينكرافت">
+          <div class="cover green"><span class="platform">Android</span>🧱</div>
+          <div class="game-info">
+            <h3>Minecraft</h3>
+            <p>نسخة الهاتف؛ تحقق من التوفر في المتجر الرسمي.</p>
+            <div class="game-bottom">
+              <span class="kind">بناء ومغامرات</span>
+              <a class="btn primary download" href="https://play.google.com/store/apps/details?id=com.mojang.minecraftpe" target="_blank" rel="noopener">Google Play ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game" data-platform="pc" data-name="stardew valley ستاردو فالي">
+          <div class="cover orange"><span class="platform">PC</span>🌾</div>
+          <div class="game-info">
+            <h3>Stardew Valley</h3>
+            <p>اعتنِ بمزرعتك واكتشف أسرار القرية.</p>
+            <div class="game-bottom">
+              <span class="kind">محاكاة ومغامرات</span>
+              <a class="btn primary download" href="https://www.stardewvalley.net/" target="_blank" rel="noopener">الموقع الرسمي ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game" data-platform="android" data-name="terraria تيراريا">
+          <div class="cover blue"><span class="platform">Android</span>⚔️</div>
+          <div class="game-info">
+            <h3>Terraria</h3>
+            <p>تنقيب وصناعة ومغامرات في عالم ثنائي الأبعاد.</p>
+            <div class="game-bottom">
+              <span class="kind">مغامرات</span>
+              <a class="btn primary download" href="https://play.google.com/store/apps/details?id=com.and.games505.TerrariaPaid" target="_blank" rel="noopener">Google Play ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game" data-platform="pc" data-name="0 ad 0ad">
+          <div class="cover red"><span class="platform">PC</span>🏛️</div>
+          <div class="game-info">
+            <h3>0 A.D.</h3>
+            <p>لعبة استراتيجية تاريخية مجانية ومفتوحة المصدر.</p>
+            <div class="game-bottom">
+              <span class="kind">استراتيجية</span>
+              <a class="btn primary download" href="https://play0ad.com/" target="_blank" rel="noopener">تحميل رسمي ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game" data-platform="android" data-name="shattered pixel dungeon">
+          <div class="cover"><span class="platform">Android</span>🧙</div>
+          <div class="game-info">
+            <h3>Shattered Pixel Dungeon</h3>
+            <p>لعبة استكشاف زنزانات وتحديات متجددة.</p>
+            <div class="game-bottom">
+              <span class="kind">أدوار ومغامرات</span>
+              <a class="btn primary download" href="https://play.google.com/store/apps/details?id=com.shatteredpixel.shatteredpixeldungeon" target="_blank" rel="noopener">Google Play ↗</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+      <div class="empty" id="empty">ما لقينا لعبة بهذا الاسم. جرّب كلمة ثانية.</div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="notice">
+        <div>
+          <h2>كل ألعابك في مكان واحد ✨</h2>
+          <p>موقع يهتم بالألعاب وروابط مصادرها الرسمية. سيتم إضافة المزيد من الألعاب قريبًا.</p>
+        </div>
+        <a class="btn secondary" href="#games">اكتشف الألعاب ↑</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <span>© <span id="year"></span> Kotlin for Forge</span>
+    <span>موقع مستقل لمحبي الألعاب | روابط التحميل تعود إلى مصادرها الأصلية.</span>
+  </div>
+</footer>
+
+<script>
+const search = document.getElementById('search');
+const cards = [...document.querySelectorAll('.game')];
+const filters = [...document.querySelectorAll('.filter')];
+const empty = document.getElementById('empty');
+let activeFilter = 'all';
+
+function updateGames() {
+  const query = search.value.trim().toLowerCase();
+  let visible = 0;
+
+  cards.forEach(card => {
+    const matchesName = (card.dataset.name + ' ' + card.innerText).toLowerCase().includes(query);
+    const matchesPlatform = activeFilter === 'all' || card.dataset.platform === activeFilter;
+    const show = matchesName && matchesPlatform;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  empty.style.display = visible ? 'none' : 'block';
+}
+
+search.addEventListener('input', updateGames);
+
+filters.forEach(button => {
+  button.addEventListener('click', () => {
+    activeFilter = button.dataset.filter;
+    filters.forEach(item => item.classList.toggle('active', item === button));
+    updateGames();
+  });
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
